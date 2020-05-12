@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: demo-app
+  name: demo-app
+spec:
+  template:
+    spec:
+      volumes:
+        - name: config
+          configMap:
+            name: demo-config
+      containers:
+        - name: demo
+          env:
+            - name: SPRING_CONFIG_LOCATION
+              value: classpath:/application.yml,/etc/config/application-qa.yml
+          volumeMounts:
+            - mountPath: /etc/config
+              name: config
+

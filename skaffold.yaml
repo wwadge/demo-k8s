@@ -1,0 +1,27 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+build:
+  artifacts:
+    - image: demo
+      jib: {}
+
+deploy:
+  kubeContext: docker-for-desktop
+  kustomize:
+    paths:
+      - kustomize/base
+
+profiles:
+  - name: minikube
+    deploy:
+      kubeContext: minikube
+      kustomize:
+        paths:
+          - kustomize/qa
+
+  - name: qa
+    deploy:
+      kubeContext: /portal-mt1-test-enjoy-platform-local:8443/system:serviceaccount:openshift:kustomize-poc
+      kustomize:
+        paths:
+          - kustomize/qa
