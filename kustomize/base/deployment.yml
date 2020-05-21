@@ -18,9 +18,11 @@ spec:
       containers:
       - image: demo
         name: demo
-        imagePullPolicy: Never
+
+#        imagePullPolicy: Never
         resources:
           limits:
             memory: 512M
-            cpu: 1000m
+            cpu: 500m
+
 
